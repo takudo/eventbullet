@@ -10,13 +10,16 @@ class Page:
 
     def get_text(self, query, attr=None):
 
-        elem = self.pq_elem.find(query)
+        elem = self.pq_html.find(query)
 
         if attr is not None :
             return elem.attr(attr)
         else :
             return elem.text()
 
+    def get_elems(self, query):
+        elems = self.pq_html.find(query)
+        return elems
 
 
 class ListPage(Page):
@@ -39,17 +42,15 @@ class ListPage(Page):
         return url_list
 
     def get_detail_elems(self, query):
-        elems = self.pq_html.find(query)
-        return map(lambda e: DetailElem(e), elems)
+        return map(lambda e: DetailElem(e), self.get_elems(query))
 
-
-class DetailElem:
+class DetailElem(Page):
 
     def __init__(self, elem):
-        self.pq_elem = pq(elem)
+        self.pq_html = pq(elem)
 
     def get_detail_page(self, query, attr=None):
-        return DetailPage(self.get(query, attr))
+        return DetailPage(self.get_text(query, attr))
 
 
 class DetailPage(Page):

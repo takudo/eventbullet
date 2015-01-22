@@ -10,23 +10,16 @@ db = SqliteExtDatabase("eventbullet.db")
 class Event(FTSModel):
 
     id = PrimaryKeyAutoIncrementField()
-
-    title = TextField()
-    updated_at = DateTimeField(default=datetime.datetime.now())
-    created_at = DateTimeField(default=datetime.datetime.now())
+    title = CharField()
+    url = CharField(null=True)
+    event_from = DateTimeField(null=True)
+    evnet_to = DateTimeField(null=True)
+    description = TextField(null=True)
+    tags = TextField(null=True)
+    updated_at = DateTimeField(default=datetime.datetime.now)
+    created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         database = db
 
-
 db.create_tables([Event], True)
-
-ev = Event()
-ev.title = "test"
-
-ev.save()
-
-print "end..."
-
-
-
