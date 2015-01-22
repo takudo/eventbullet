@@ -5,3 +5,6 @@
 
 #python ignore
 *.pyc
+
+#db ignore
+*.db
