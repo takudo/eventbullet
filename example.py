@@ -40,27 +40,52 @@ detail_pages = map(
 ##################
 
 from eventbullet.db.events import *
+import locale
+import datetime
+
+locale.setlocale(locale.LC_ALL, "ja_JP")
 
 for p in detail_pages :
 
-    cnt = Event.select().where(Event.url == p.url).count()
+    dt_start_date_str = p.get_text("span.dtstart p.ymd")
+    dt_start_time_str = p.get_text("span.dtstart span.hi")
+    datetimestr = dt_start_date_str + " " + dt_start_time_str
+    dt_start = datetime.datetime.strptime(datetimestr.encode("utf-8"), "%Y/%m/%d(%a) %H:%M" )
 
+    dt_end_date_str = dt_start_date_str
+    dt_end_time_str = p.get_text("span.dtend")
+    datetimestr = dt_end_date_str + " " + dt_end_time_str
+    dt_end = datetime.datetime.strptime(datetimestr.encode("utf-8"), "%Y/%m/%d(%a) %H:%M" )
+
+    ev = Event.select().where(Event.url == p.url)
+    cnt = ev.count()
+
+    # Is already registered this event.
     if cnt == 0 :
-        ev = Event()
-        ev.title = p.get_text("h2.event_title")
-        ev.url = p.url
-        ev.tags = "scala"
-        ev.description = p.get_text("div#editor_area")
-        ev.save()
+
+        Event.add_event(
+            p.get_text("h2.event_title"),
+            p.url,
+            ["scala"],
+            p.get_text("div#editor_area"),
+            dt_start,
+            dt_end
+        )
+
+    else :
+
+        ev = ev[0]
+        if ev.event_from != dt_start or ev.event_to != dt_end:
+            ev.update_date(dt_start, dt_end)
 
 ##################
 # pushbullet
 ##################
 
-evs = Event.select()
+evs = Event.get_not_end_events()
 
 for ev in evs:
-    notice
+    ev.notify(force=True)
 
 print "end..."
 

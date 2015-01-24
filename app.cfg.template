@@ -1,0 +1,4 @@
+[pushbullet]
+api_key: [api_key from https://www.pushbullet.com/account]
+title: #from#~#to_time# #title#
+message: #url#
