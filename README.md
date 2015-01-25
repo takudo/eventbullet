@@ -16,6 +16,10 @@ And make pushbullet account.
 $ sudo pip install peewee pyquery pushbullet.py
 ```
 
+'pyquery' requires 'libxml' libraries.
+If you find errors, then you install libxml libraries(ex: libxslt, libxml-python), when pip install pyquery.
+
+
 Git clone this repository.
 
 ```
