@@ -29,7 +29,7 @@ $ cd eventbullet
 
 Make config file.
 
-```
+```-
 $ cp app.cfg.template app.cfg
 $ cat app.cfg
 [pushbullet]
@@ -39,6 +39,14 @@ message: #url#
 ```
 
 replace api_key from your [pushbullet account page](https://www.pushbullet.com/account)
+
+Edit your interesting keywords.
+
+```
+$ vi all-site.py
+```
+
+You can edit `tags` variable, then you can get the event's info that match you.
 
 ## Executing
 
