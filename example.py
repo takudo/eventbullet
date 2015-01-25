@@ -43,7 +43,7 @@ from eventbullet.db.events import *
 import locale
 import datetime
 
-locale.setlocale(locale.LC_ALL, "ja_JP")
+locale.setlocale(locale.LC_ALL, "ja_JP.utf-8")
 
 for p in detail_pages :
 
@@ -85,7 +85,8 @@ for p in detail_pages :
 evs = Event.get_not_end_events()
 
 for ev in evs:
-    ev.notify(force=True)
+    # ev.notify(force=True)
+    ev.notify()
 
 print "end..."
 

@@ -13,7 +13,7 @@ And make pushbullet account.
 ## installment
 
 ```
-$ sudo pip install peewee pyqueyr pushbullet.py
+$ sudo pip install peewee pyquery pushbullet.py
 ```
 
 Git clone this repository.
