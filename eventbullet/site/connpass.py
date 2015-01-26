@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+#
+# 'connpass' is Japanese event site.
+# It's url is http://connpass.com/
+#
+
 import common
 
 def notify(tag):
