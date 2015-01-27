@@ -50,16 +50,22 @@ class Event(Model):
 
     @staticmethod
     def add_event(title, url, tags, description=None, event_from=None, event_to=None):
+
+        print "add event url:", url
         ev = Event()
         ev.title = title
         ev.url = url
         ev.description = description
+        ev.event_from = event_from
+        ev.event_to = event_to
         ev.save()
 
         for tag in tags:
             Tag.add_tag(ev, tag)
 
     def update_date(self, event_from=None, event_to=None):
+
+        print "update event url:", self.url
 
         if event_from is not None:
             self.event_from = event_from
@@ -86,6 +92,11 @@ class Event(Model):
     @staticmethod
     def get_not_end_events():
         events = Event.select().where(Event.event_to > datetime.datetime.now())
+        return events
+
+    @staticmethod
+    def get_not_notified_events():
+        events = Event.select().where(Event.notified == False)
         return events
 
 class Tag(Model):

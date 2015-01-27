@@ -7,6 +7,7 @@ eventbullte is newer event push notification tool with [pushbullet](https://www.
 * peewee
 * pyquery
 * pushbullet.py
+* [requests](http://docs.python-requests.org/en/latest/)
 
 And make pushbullet account.
 

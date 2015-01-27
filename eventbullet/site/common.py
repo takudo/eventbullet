@@ -88,13 +88,5 @@ def notify(
         ev.notify()
 
 
-def get_list_page(url):
-    """
 
-    :param url: String
-    :return: ListPage
-    """
-
-    lp = ListPage(url=url)
-    return lp
 
